@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kyty/Services/Personalized_Button.dart';
 import 'package:kyty/Services/Personalized_TextFields.dart';
 
+import '../Services/login_logo.dart';
+
 class LoginView extends StatelessWidget{
 
   //Constants
@@ -115,6 +117,20 @@ class LoginView extends StatelessWidget{
       ),
 
       //Google & Apple
+
+      const SizedBox(height: 50,),
+
+      const Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          //Google
+          login_logo(imageRoute: 'resources/logo_google.png'),
+
+          SizedBox(width: 25,),
+
+          //Apple
+          login_logo(imageRoute: 'resources/logo_apple.png'),
+        ],)
 
       //not member
 
