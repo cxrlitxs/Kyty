@@ -31,6 +31,5 @@ class Personalized_Button extends StatelessWidget{
         ),
       ),
     );
-
   }
 }

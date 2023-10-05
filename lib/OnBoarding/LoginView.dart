@@ -1,20 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:kyty/Services/Personalized_Button.dart';
 import 'package:kyty/Services/Personalized_TextFields.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../Services/login_logo.dart';
 
 class LoginView extends StatelessWidget{
 
   //Constants
-
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  late BuildContext _context;
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
   //Methods
 
-  void signIn(){
+  void onClickSignIn() async{
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: usernameController.text,
+          password: passwordController.text
+      );
+      print("CORRECT LOGIN");
 
+      String uid=FirebaseAuth.instance.currentUser!.uid;
+      DocumentSnapshot<Map<String, dynamic>> datos=await db.collection("users").doc(uid).get();
+      if(datos.exists){
+        print("EL NOMBRE DEL USUARIO LOGEADO ES: "+datos.data()?["firstName"]);
+        print("EL NOMBRE DEL USUARIO LOGEADO ES: "+datos.data()?["lastName"]);
+        print("LA EDAD DEL USUARIO LOGEADO ES: "+datos.data()!["age"].toString());
+        print("LA ALTURA DEL USUARIO LOGEADO ES: "+datos.data()!["tall"].toString());
+        Navigator.of(_context).popAndPushNamed("/homeview");
+      }
+      else{
+        Navigator.of(_context).popAndPushNamed("/homeview");
+      }
+
+    } on FirebaseAuthException catch (e) {
+
+
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+
+  }
+
+  void onClickregister(){
+    Navigator.of(_context).pushNamed("/registerview");
+  }
+
+  void onClickForgotPassword(){
 
 
   }
@@ -22,6 +61,8 @@ class LoginView extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
+    _context=context;
 
     Column columna = Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -68,8 +109,9 @@ class LoginView extends StatelessWidget{
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text('¿Olvidaste la contraseña?',
-            style: TextStyle(color: Colors.grey[600]),
+            TextButton(onPressed: onClickForgotPassword, child: Text("¿Olvidaste la contraseña?",
+              style: TextStyle(color: Colors.grey[600]),
+              ),
             ),
           ],
         ),
@@ -80,7 +122,7 @@ class LoginView extends StatelessWidget{
       //sign in
 
       Personalized_Button(
-        onTap: signIn,
+        onTap: onClickSignIn,
       ),
 
       const SizedBox(height: 50,),
@@ -144,16 +186,17 @@ class LoginView extends StatelessWidget{
             style: TextStyle(color: Colors.grey[700]),
           ),
           const SizedBox(width: 4,),
-          const Text(
-              '¡Registrate ya!',
+          TextButton(onPressed: onClickregister, child: const Text("¡Registrate ya!",
           style: TextStyle(
-              color: Colors.blue,
-              fontWeight: FontWeight.bold,
-            ),
+            color: Colors.blue,
+            fontWeight: FontWeight.bold,
+          ),
+          ),
           ),
         ],
       ),
     ],);
+
 
     Scaffold scaf = Scaffold(backgroundColor: Colors.grey[300],
       body: SafeArea(
