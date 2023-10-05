@@ -81,6 +81,39 @@ class LoginView extends StatelessWidget{
 
       const SizedBox(height: 50,),
 
+      //Divider
+
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        child: Row(
+          children: [
+            Expanded(
+                child: Divider(
+                  thickness: 0.5,
+                  color: Colors.grey[400],
+                ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(
+                  'O continúa con',
+              style: TextStyle(color: Colors.grey [700]),
+              ),
+            ),
+
+            //Separator
+
+            Expanded(
+              child: Divider(
+                thickness: 0.5,
+                color: Colors.grey[400],
+              ),
+            ),
+          ],
+        ),
+      ),
+
       //not member
 
     ],);
