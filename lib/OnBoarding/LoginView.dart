@@ -114,6 +114,8 @@ class LoginView extends StatelessWidget{
         ),
       ),
 
+      //Google & Apple
+
       //not member
 
     ],);
