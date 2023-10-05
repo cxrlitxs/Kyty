@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kyty/Services/Personalized_Button.dart';
 import 'package:kyty/Services/Personalized_TextFields.dart';
 
 class LoginView extends StatelessWidget{
@@ -7,6 +8,14 @@ class LoginView extends StatelessWidget{
 
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+
+  //Methods
+
+  void signIn(){
+
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +75,11 @@ class LoginView extends StatelessWidget{
 
       //sign in
 
+      Personalized_Button(
+        onTap: signIn,
+      ),
 
+      const SizedBox(height: 50,),
 
       //not member
 
