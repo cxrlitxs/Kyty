@@ -4,9 +4,10 @@ class Personalized_Button extends StatelessWidget{
 
   final Function()? onTap;
   final String text;
-  final Color color;
+  final Color colorBase;
+  final Color colorText;
   
-  const Personalized_Button({super.key, required this.onTap, required this.text, required this.color});
+  const Personalized_Button({super.key, required this.onTap, required this.text, required this.colorBase, required this.colorText});
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +19,14 @@ class Personalized_Button extends StatelessWidget{
         padding: const EdgeInsets.all(25),
         margin: EdgeInsets.symmetric(horizontal: 25.0),
         decoration: BoxDecoration(
-            color: color,
+            color: colorBase,
             borderRadius: BorderRadius.circular(8)
         ),
         child: Center(
           child: Text(
               text,
-          style: const TextStyle(
-              color: Colors.white,
+          style: TextStyle(
+              color: colorText,
               fontWeight: FontWeight.bold,
             fontSize: 16,
           ),

@@ -124,7 +124,8 @@ class LoginView extends StatelessWidget{
       Personalized_Button(
         onTap: onClickSignIn,
         text: 'Iniciar sesión',
-        color: Colors.black,
+        colorBase: Colors.black,
+        colorText: Colors.white,
       ),
 
       const SizedBox(height: 50,),
