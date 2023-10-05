@@ -23,7 +23,9 @@ class LoginView extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
 
-    Column columna = Column(children: [
+    Column columna = Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
       const SizedBox(height: 50,),
       
       //logo kyty
@@ -130,21 +132,37 @@ class LoginView extends StatelessWidget{
 
           //Apple
           login_logo(imageRoute: 'resources/logo_apple.png'),
-        ],)
+        ],),
+
+      const SizedBox(height: 50,),
 
       //not member
-
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('¿No te unido aún?',
+            style: TextStyle(color: Colors.grey[700]),
+          ),
+          const SizedBox(width: 4,),
+          const Text(
+              '¡Registrate ya!',
+          style: TextStyle(
+              color: Colors.blue,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
     ],);
 
     Scaffold scaf = Scaffold(backgroundColor: Colors.grey[300],
-      body: SafeArea(child: Center(child: columna),),
+      body: SafeArea(
+        child: Center(
+          child: columna,),
+      )
     );
 
     return scaf;
 
   }
-
-//body: columna,
-//       appBar: appBar,
-
 }
