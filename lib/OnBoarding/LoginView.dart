@@ -64,7 +64,7 @@ class LoginView extends StatelessWidget{
 
     _context=context;
 
-    Column columna = Column(
+    Column column = Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
       const SizedBox(height: 50,),
@@ -123,6 +123,8 @@ class LoginView extends StatelessWidget{
 
       Personalized_Button(
         onTap: onClickSignIn,
+        text: 'Iniciar sesión',
+        color: Colors.black,
       ),
 
       const SizedBox(height: 50,),
@@ -201,7 +203,7 @@ class LoginView extends StatelessWidget{
     Scaffold scaf = Scaffold(backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: Center(
-          child: columna,),
+          child: column,),
       )
     );
 
