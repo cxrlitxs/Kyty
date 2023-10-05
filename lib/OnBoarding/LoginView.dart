@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:kyty/Services/Personalized_TextFields.dart';
 
 class LoginView extends StatelessWidget{
+
+  //Constants
+
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -24,13 +30,45 @@ class LoginView extends StatelessWidget{
 
       //username TextField
 
-      Personalized_TextFields(),
+      Personalized_TextFields(
+        controller: usernameController,
+        hintText: 'Correo',
+        obscuredText: false,
+      ),
 
       const SizedBox(height: 10,),
 
       //password TextField
 
-      Personalized_TextFields(),
+      Personalized_TextFields(
+        controller: passwordController,
+        hintText: 'Contraseña ',
+        obscuredText: true,
+      ),
+
+      const SizedBox(height: 10,),
+
+      //forgot password
+
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text('¿Olvidaste la contraseña?',
+            style: TextStyle(color: Colors.grey[600]),
+            ),
+          ],
+        ),
+      ),
+
+      const SizedBox(height: 25,),
+
+      //sign in
+
+
+
+      //not member
 
     ],);
 
