@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../Services/Personalized_Button.dart';
 import '../Services/Personalized_TextFields.dart';
+import '../Services/Personalized_SnackBar.dart';
 
 class RegisterLogin extends StatelessWidget{
 
@@ -13,10 +14,6 @@ class RegisterLogin extends StatelessWidget{
   final rePasswordController = TextEditingController();
 
   //Methods
-
-  SnackBar snackBar = SnackBar(
-    content: Text('Contraseña incorrecta, inténtelo de nuevo'),
-  );
 
   void onClickCancel(){
     Navigator.of(_context).pushNamed("/loginview");
@@ -44,7 +41,7 @@ class RegisterLogin extends StatelessWidget{
       }
     }
     else{
-      ScaffoldMessenger.of(_context).showSnackBar(snackBar);
+      ScaffoldMessenger.of(_context).showSnackBar(Personalized_SnackBar(txtSnackBar: 'Las contraseñas no coinciden'));
     }
   }
 
