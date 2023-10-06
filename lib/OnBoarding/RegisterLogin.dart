@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../Services/Personalized_Button.dart';
+import '../Services/Personalized_TextFields.dart';
+
 class RegisterLogin extends StatelessWidget{
 
   //Constants
@@ -15,11 +18,11 @@ class RegisterLogin extends StatelessWidget{
     content: Text('Contraseña incorrecta, inténtelo de nuevo'),
   );
 
-  void onClickCancelar(){
+  void onClickCancel(){
     Navigator.of(_context).pushNamed("/loginview");
   }
 
-  void onClickAceptar() async {
+  void onClickAcept() async {
     if(passwordController.text==rePasswordController.text) {
       try {
 
@@ -47,7 +50,40 @@ class RegisterLogin extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    // TODO: implement build'
+
+    _context=context;
+
+
+    Column column = Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const SizedBox(height: 50,),
+
+        //logo kyty
+        Image.asset("resources/logo_kyty.png", width: 300, height: 300),
+
+
+        const SizedBox(height: 50,),
+
+        //welcome text
+        Text('¡Registrarse es gratis!',
+          style: TextStyle(color: Colors.grey[700],
+            fontSize: 16,),),
+
+
+      ],);
+
+
+    Scaffold scaf = Scaffold(backgroundColor: Colors.grey[300],
+        body: SafeArea(
+          child: Center(
+            child: column,
+          ),
+        )
+    );
+
+    return scaf;
 
   }
 }
