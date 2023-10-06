@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kyty/Services/Personalized_Button.dart';
+import 'package:kyty/Services/Personalized_SnackBar.dart';
 import 'package:kyty/Services/Personalized_TextFields.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -41,9 +42,14 @@ class LoginView extends StatelessWidget{
 
 
       if (e.code == 'user-not-found') {
+        const Personalized_SnackBar(txtSnackBar: 'Correo no encontrado',);
         print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
+        const Personalized_SnackBar(txtSnackBar: 'Contraseña incorrecta',);
         print('Wrong password provided for that user.');
+      }else if(e.code == 'user-not-found' && e.code == 'wrong-password'){
+        const Personalized_SnackBar(txtSnackBar: 'Correo y contraseña incorrecta',);
+        print('No user found & wrong password.');
       }
     }
 
