@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Personalized_SnackBar extends StatelessWidget{
+class Personalized_SnackBar extends SnackBar{
 
   //Constans
   final String txtSnackBar;
 
-  const Personalized_SnackBar({super.key, required this.txtSnackBar});
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    SnackBar snackBar = SnackBar(
-      content: Text(txtSnackBar),
-    );
-
-    return snackBar;
-  }
-
-
-
+   Personalized_SnackBar({Key? key, required this.txtSnackBar})
+      : super(
+    key: key,
+    content: Text(txtSnackBar),
+  );
 }
