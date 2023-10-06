@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kyty/OnBoarding/RegisterLogin.dart';
 import 'OnBoarding/LoginView.dart';
 import 'OnBoarding/ChangePasswordView.dart';
+import 'OnBoarding/HomeView.dart';
 
 class Kyty extends StatelessWidget{
   @override
@@ -13,6 +14,7 @@ class Kyty extends StatelessWidget{
       '/loginview' : (context) => LoginView(),
       '/registerview' : (context) => RegisterLogin(),
       '/changepassword' : (context) => ChangePasswordView(),
+      '/homeview' : (context) => HomeView(),
     },
       initialRoute: '/loginview',
     );
