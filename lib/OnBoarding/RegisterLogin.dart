@@ -93,10 +93,10 @@ class RegisterLogin extends StatelessWidget{
 
         const SizedBox(height: 10,),
 
-        //password TextField
+        //repassword TextField
 
         Personalized_TextFields(
-          controller: passwordController,
+          controller: rePasswordController,
           hintText: 'Repetir contraseña',
           obscuredText: true,
         ),
