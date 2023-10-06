@@ -71,6 +71,35 @@ class RegisterLogin extends StatelessWidget{
           style: TextStyle(color: Colors.grey[700],
             fontSize: 16,),),
 
+        const SizedBox(height: 25,),
+
+        //username TextField
+
+        Personalized_TextFields(
+          controller: usernameController,
+          hintText: 'Correo',
+          obscuredText: false,
+        ),
+
+        const SizedBox(height: 10,),
+
+        //password TextField
+
+        Personalized_TextFields(
+          controller: passwordController,
+          hintText: 'Contraseña ',
+          obscuredText: true,
+        ),
+
+        const SizedBox(height: 10,),
+
+        //password TextField
+
+        Personalized_TextFields(
+          controller: passwordController,
+          hintText: 'Repetir contraseña',
+          obscuredText: true,
+        ),
 
       ],);
 
