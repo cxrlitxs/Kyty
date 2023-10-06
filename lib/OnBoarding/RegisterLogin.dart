@@ -112,6 +112,25 @@ class RegisterLogin extends StatelessWidget{
           colorText: Colors.white,
         ),
 
+        const SizedBox(height: 50,),
+
+        //return to the login
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('¿Ya tienes una cuenta?',
+              style: TextStyle(color: Colors.grey[700]),
+            ),
+            const SizedBox(width: 4,),
+            TextButton(onPressed: onClickCancel, child: const Text("¡Iniciar sesión!",
+              style: TextStyle(
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            ),
+          ],
+        ),
       ],);
 
 
