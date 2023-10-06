@@ -101,6 +101,17 @@ class RegisterLogin extends StatelessWidget{
           obscuredText: true,
         ),
 
+        const SizedBox(height: 25,),
+
+        //sign up
+
+        Personalized_Button(
+          onTap: onClickAcept,
+          text: 'Registrarse',
+          colorBase: Colors.black,
+          colorText: Colors.white,
+        ),
+
       ],);
 
 
