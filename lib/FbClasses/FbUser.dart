@@ -19,7 +19,7 @@ class FbUser {
       SnapshotOptions? options,
       ) {
     final data = snapshot.data();
-    return FbFbUser(
+    return FbUser(
         firstName: data?['firstName'],
         lastName: data?['lastName'],
         age: data?['age'],
