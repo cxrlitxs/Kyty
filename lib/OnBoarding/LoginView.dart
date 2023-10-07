@@ -35,12 +35,13 @@ class LoginView extends StatelessWidget{
         Navigator.of(_context).popAndPushNamed("/homeview");
       }
       else{
-        Navigator.of(_context).popAndPushNamed("/homeview");
+        Navigator.of(_context).popAndPushNamed("/profileview");
       }
 
     } on FirebaseAuthException catch (e) {
 
-
+      print('Entro en el catch');
+      print('No user found for that email.');
       if (e.code == 'user-not-found') {
         Personalized_SnackBar(txtSnackBar: 'Correo no encontrado',);
         print('No user found for that email.');
@@ -192,7 +193,7 @@ class LoginView extends StatelessWidget{
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('¿No te unido aún?',
+          Text('¿No te has unido aún?',
             style: TextStyle(color: Colors.grey[700]),
           ),
           const SizedBox(width: 4,),
