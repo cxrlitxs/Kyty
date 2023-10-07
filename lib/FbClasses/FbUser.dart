@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class FbUser{
+class FbUser {
 
   final String firstName;
   final String lastName;
@@ -14,8 +14,8 @@ class FbUser{
     required this.height
   });
 
-  factory FbUser.fromFirestore(
-      DocumentSnapshot<Map<String, dynamic>> snapshot,
+  factory FbUser.fromFirestore (
+      DocumentSnapshot <Map <String, dynamic> > snapshot,
       SnapshotOptions? options,
       ) {
     final data = snapshot.data();
@@ -27,7 +27,7 @@ class FbUser{
     );
   }
 
-  Map<String, dynamic> toFirestore() {
+  Map <String, dynamic> toFirestore() {
     return {
       if (firstName != null) "firstName": firstName,
       if (lastName != null) "lastName": lastName,
