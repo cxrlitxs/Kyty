@@ -14,6 +14,47 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView>{
 
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkSession();
+  }
+
+  void checkSession() async{
+    await Future.delayed(Duration(seconds: 4));
+    if (FirebaseAuth.instance.currentUser != null) {
+
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+
+      DocumentReference<FbUser> ref = db.collection("users")
+          .doc(uid)
+          .withConverter(fromFirestore: FbUser.fromFirestore,
+        toFirestore: (FbUser user, _) => user.toFirestore(),);
+
+
+      DocumentSnapshot<FbUser> docSnap=await ref.get();
+      FbUser user = docSnap.data()!;
+
+      if(user!=null){
+        print("EL NOMBRE DEL USUARIO LOGEADO ES: " + user.firstName);
+        print("EL APELLIDO DEL USUARIO LOGEADO ES: " + user.lastName);
+        print("LA EDAD DEL USUARIO LOGEADO ES: " + user.age.toString());
+        print("LA ALTURA DEL USUARIO LOGEADO ES: " + user.height.toString());
+        Navigator.of(context).popAndPushNamed("/homeview");
+      }
+      else{
+        Navigator.of(context).popAndPushNamed("/perfilview");
+      }
+
+    }
+    else{
+      Navigator.of(context).popAndPushNamed("/loginview");
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build

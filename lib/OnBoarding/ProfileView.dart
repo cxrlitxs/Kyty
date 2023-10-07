@@ -58,7 +58,7 @@ class ProfileView extends StatelessWidget{
         Personalized_TextFields(
           controller: tecLastName,
           hintText: 'Apellidos ',
-          obscuredText: true,
+          obscuredText: false,
         ),
 
         const SizedBox(height: 10,),
@@ -67,7 +67,7 @@ class ProfileView extends StatelessWidget{
         Personalized_TextFields(
           controller: tecAge,
           hintText: 'Edad ',
-          obscuredText: true,
+          obscuredText: false,
         ),
 
         const SizedBox(height: 10,),
@@ -76,7 +76,7 @@ class ProfileView extends StatelessWidget{
         Personalized_TextFields(
           controller: tecHeight,
           hintText: 'Altura ',
-          obscuredText: true,
+          obscuredText: false,
         ),
 
         const SizedBox(height: 25,),
