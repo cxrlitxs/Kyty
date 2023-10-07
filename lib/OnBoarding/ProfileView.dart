@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../Services/Personalized_Button.dart';
 import '../Services/Personalized_TextFields.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:kyty/FbClasses/FbUser.dart';
 
 class ProfileView extends StatelessWidget{
 
@@ -12,8 +14,17 @@ class ProfileView extends StatelessWidget{
   TextEditingController tecAge = TextEditingController();
   TextEditingController tecHeight = TextEditingController();
 
-  void onClickContinue() {
+  void onClickContinue() async {
 
+    FbUser user = new FbUser(firstName: tecFirstName.text, lastName: tecLastName.text,
+        age: int.parse(tecAge.text), height: double.parse(tecHeight.text),);
+
+
+    //Create document with ID
+    String userUid = FirebaseAuth.instance.currentUser!.uid;
+    await db.collection("users").doc(userUid).set(user.toFirestore());
+
+    Navigator.of(_context).popAndPushNamed("/homeview");
 
   }
 
