@@ -17,6 +17,10 @@ class ProfileView extends StatelessWidget{
 
   }
 
+  void onClickCencelar(){
+
+  }
+
   @override
   Widget build(BuildContext context) {
     _context=context;
@@ -77,13 +81,24 @@ class ProfileView extends StatelessWidget{
 
         const SizedBox(height: 25,),
 
-        //continue
+        //continue button
 
         Personalized_Button(
           onTap: onClickContinue,
           text: 'Continuar',
           colorBase: Colors.black,
           colorText: Colors.white,
+        ),
+
+        const SizedBox(height: 10,),
+
+        //cancel button
+
+        Personalized_Button(
+          onTap: onClickContinue,
+          text: 'Cancelar',
+          colorBase: Colors.white,
+          colorText: Colors.black,
         ),
 
       ],);
