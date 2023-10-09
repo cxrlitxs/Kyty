@@ -8,7 +8,6 @@ class ChangePasswordView extends StatelessWidget{
     //Constants
     late BuildContext _context;
     final usernameController = TextEditingController();
-    final passwordController = TextEditingController();
 
     //Methods
 
@@ -89,11 +88,13 @@ class ChangePasswordView extends StatelessWidget{
 
 
       Scaffold scaf = Scaffold(backgroundColor: Colors.grey[300],
-          body: SafeArea(
-            child: Center(
+      body: SafeArea(
+      child: SingleChildScrollView(
+      child: Center(
               child: column,
             ),
           )
+      )
       );
 
       return scaf;

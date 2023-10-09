@@ -211,8 +211,10 @@ class LoginView extends StatelessWidget{
 
     Scaffold scaf = Scaffold(backgroundColor: Colors.grey[300],
       body: SafeArea(
+        child: SingleChildScrollView(
         child: Center(
           child: column,),
+        )
       )
     );
 
