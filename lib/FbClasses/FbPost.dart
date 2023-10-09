@@ -4,10 +4,12 @@ class FbPost{
 
   final String title;
   final String body;
+  final Timestamp date;
 
   FbPost ({
     required this.title,
-    required this.body
+    required this.body,
+    required this.date
   });
 
   factory FbPost.fromFirestore(
@@ -17,7 +19,8 @@ class FbPost{
     final data = snapshot.data();
     return FbPost(
         title: data?['title'],
-        body: data?['body']
+        body: data?['body'],
+        date: Timestamp.now(),
     );
   }
 
