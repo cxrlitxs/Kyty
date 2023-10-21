@@ -31,7 +31,10 @@ class _HomeViewState extends State<HomeView> {
       toFirestore: (FbPost post, _) => post.toFirestore(),);
 
 
-    QuerySnapshot<FbPost> querySnapshot = await ref.get();
+    QuerySnapshot<FbPost> querySnapshot = await ref
+        .orderBy("date", descending: true)
+        .get();
+
     for(int i=0;i<querySnapshot.docs.length;i++){
       setState(() {
         posts.add(querySnapshot.docs[i].data());
@@ -53,6 +56,9 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
+  void onClickNewPost() {
+    Navigator.of(context).pushNamed("/registerview");
+  }
 
   @override
   Widget build(BuildContext context) {
