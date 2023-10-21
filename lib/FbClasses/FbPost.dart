@@ -53,10 +53,11 @@ class FbPost{
     String formattedMinute = minute.toString().padLeft(2, '0');
 
     // The hour, minutes, and AM/PM into a text string.
-    return  '${dateTime.day}'
+    return  'Fecha: '
+            '${dateTime.day}'
             '/${dateTime.month}'
             '/${dateTime.year}'
-            '   $formattedHour:$formattedMinute $amPm';
+            '  $formattedHour:$formattedMinute $amPm';
 
 
     //return '${dateTime.day}'

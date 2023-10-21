@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../FbClasses/FbPost.dart';
 import '../Services/PostCell.dart';
+import '../Services/PostGridCellView.dart';
 
 class HomeView extends StatefulWidget{
   @override
@@ -14,6 +15,7 @@ class _HomeViewState extends State<HomeView> {
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   final List<FbPost> posts = [];
+  bool bIsList = false;
 
   @override
   void initState() {
@@ -44,12 +46,15 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: AppBar(title: Text("KYTY"),
         backgroundColor: Colors.grey[900],),
-      body: ListView.separated(
-        padding: EdgeInsets.all(8),
-        itemCount: posts.length,
-        itemBuilder: creadorDeItemLista,
-        separatorBuilder: creadorDeSeparadorLista,
+      body: Center(
+        child: celdasOLista(bIsList),
       ),
+      //ListView.separated(
+      //padding: EdgeInsets.all(8),
+      //itemCount: posts.length,
+      //itemBuilder: creadorDeItemLista,
+      //separatorBuilder: creadorDeSeparadorLista,
+      //),
     );
   }
 
@@ -72,8 +77,35 @@ class _HomeViewState extends State<HomeView> {
           color: Colors.grey[400],
         ),
         //CircularProgressIndicator(),
-        //Image.network("https://media.tenor.com/zBc1XhcbTSoAAAAC/nyan-cat-rainbow.gif")
       ],
     );
   }
+
+  Widget? creadorDeItemMatriz(BuildContext context, int index){
+    return PostGridCellView(
+      sText: posts[index].title,
+      sBody: posts[index].body,
+      sDate: posts[index].formattedData(),
+      dFontSize: 20,
+      iColorCode: 0,
+    );
+  }
+
+  Widget celdasOLista(bool isList) {
+    if (isList) {
+      return ListView.separated(
+        padding: EdgeInsets.all(8),
+        itemCount: posts.length,
+        itemBuilder: creadorDeItemLista,
+        separatorBuilder: creadorDeSeparadorLista,
+      );
+    } else {
+      return GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
+          itemCount: posts.length,
+          itemBuilder: creadorDeItemMatriz
+      );
+    }
+  }
+
 }
