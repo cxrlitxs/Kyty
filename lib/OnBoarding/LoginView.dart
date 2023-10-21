@@ -75,13 +75,13 @@ class LoginView extends StatelessWidget{
     Column column = Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-      const SizedBox(height: 50,),
+      const SizedBox(height: 20,),
       
       //logo kyty
       Image.asset("resources/logo_kyty.png", width: 300, height: 300),
       
       
-      const SizedBox(height: 50,),
+      const SizedBox(height: 20,),
       
       //welcome text
       Text('¡Bienvenido de nuevo!',
