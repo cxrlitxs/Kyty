@@ -23,7 +23,7 @@ class _SplashViewState extends State<SplashView>{
   }
 
   void checkSession() async{
-    await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(Duration(seconds: 2));
     if (FirebaseAuth.instance.currentUser != null) {
 
       String uid = FirebaseAuth.instance.currentUser!.uid;
@@ -89,8 +89,5 @@ class _SplashViewState extends State<SplashView>{
     );
 
     return scaf;
-
   }
-
-
 }

@@ -25,9 +25,10 @@ class LoginView extends StatelessWidget{
       );
       print("CORRECT LOGIN");
 
-      String uid=FirebaseAuth.instance.currentUser!.uid;
-      DocumentSnapshot<Map<String, dynamic>> datos=await db.collection("users").doc(uid).get();
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      DocumentSnapshot<Map<String, dynamic>> datos = await db.collection("users").doc(uid).get();
       if(datos.exists){
+        print("EL NOMBRE DEL USUARIO LOGEADO ES: "+datos.data()?["nickName"]);
         print("EL NOMBRE DEL USUARIO LOGEADO ES: "+datos.data()?["firstName"]);
         print("EL NOMBRE DEL USUARIO LOGEADO ES: "+datos.data()?["lastName"]);
         print("LA EDAD DEL USUARIO LOGEADO ES: "+datos.data()!["age"].toString());

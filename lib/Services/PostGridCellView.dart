@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 
 class PostGridCellView extends StatelessWidget{
 
-  final String sText;
+  final String sNickName;
   final String sBody;
   final String sDate;
   final int iColorCode;
   final double dFontSize;
 
   const PostGridCellView({super.key,
-    required this.sText,
+    required this.sNickName,
     required this.sBody,
     required this.sDate,
     required this.iColorCode,
-    required this.dFontSize
+    required this.dFontSize,
   });
 
 
@@ -35,11 +35,12 @@ class PostGridCellView extends StatelessWidget{
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(sText,style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+                        Text(sNickName,style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
                         const SizedBox(height: 10,),
                         Text(sBody),
                         const SizedBox(height: 10,),
                         Text(sDate),
+                        //"$sNickName • $sDate"
                       ],
                     )
                 )

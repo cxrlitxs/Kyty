@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FbPost{
 
-  final String title;
+  final String nickName;
   final String body;
   final Timestamp date;
 
   FbPost ({
-    required this.title,
+    required this.nickName,
     required this.body,
     required this.date
   });
@@ -18,7 +18,7 @@ class FbPost{
       ) {
     final data = snapshot.data();
     return FbPost(
-        title: data?['title'],
+        nickName: data?['nickName'],
         body: data?['body'],
         date: data?['date'],
     );
@@ -26,7 +26,7 @@ class FbPost{
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (title != null) "titulo": title,
+      if (nickName != null) "nickName": nickName,
       if (body != null) "cuerpo": body,
       if (date != null) "date": Timestamp.now(),
     };
@@ -53,7 +53,7 @@ class FbPost{
     String formattedMinute = minute.toString().padLeft(2, '0');
 
     // The hour, minutes, and AM/PM into a text string.
-    return  'Fecha: '
+    return  'Fecha • '
             '${dateTime.day}'
             '/${dateTime.month}'
             '/${dateTime.year}'

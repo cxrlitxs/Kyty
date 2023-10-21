@@ -23,7 +23,6 @@ class _HomeViewState extends State<HomeView> {
     // TODO: implement initState
     super.initState();
     descargarPosts();
-
   }
 
   void descargarPosts() async{
@@ -52,8 +51,8 @@ class _HomeViewState extends State<HomeView> {
         bIsList=false;
       }
     });
-
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +75,7 @@ class _HomeViewState extends State<HomeView> {
 
   Widget? creadorDeItemLista(BuildContext context, int index){
     return PostCellView(
-      sText: posts[index].title,
+      sNickName: posts[index].nickName,
       sBody: posts[index].body,
       sDate: posts[index].formattedData(),
       dFontSize: 20,
@@ -99,7 +98,7 @@ class _HomeViewState extends State<HomeView> {
 
   Widget? creadorDeItemMatriz(BuildContext context, int index){
     return PostGridCellView(
-      sText: posts[index].title,
+      sNickName: posts[index].nickName,
       sBody: posts[index].body,
       sDate: posts[index].formattedData(),
       dFontSize: 20,
@@ -123,5 +122,4 @@ class _HomeViewState extends State<HomeView> {
       );
     }
   }
-
 }

@@ -9,6 +9,7 @@ class ProfileView extends StatelessWidget{
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   late BuildContext _context;
+  TextEditingController tecNickName = TextEditingController();
   TextEditingController tecFirstName = TextEditingController();
   TextEditingController tecLastName = TextEditingController();
   TextEditingController tecAge = TextEditingController();
@@ -16,7 +17,7 @@ class ProfileView extends StatelessWidget{
 
   void onClickContinue() async {
 
-    FbUser user = new FbUser(firstName: tecFirstName.text, lastName: tecLastName.text,
+    FbUser user = FbUser(nickName: tecNickName.text, firstName: tecFirstName.text, lastName: tecLastName.text,
         age: int.parse(tecAge.text), height: double.parse(tecHeight.text),);
 
 
@@ -53,6 +54,16 @@ class ProfileView extends StatelessWidget{
             fontSize: 16,),),
 
         const SizedBox(height: 25,),
+
+        //nick name TextField
+
+        Personalized_TextFields(
+          controller: tecNickName,
+          hintText: 'Apodo',
+          obscuredText: false,
+        ),
+
+        const SizedBox(height: 10,),
 
         //fist name TextField
 
@@ -124,7 +135,5 @@ class ProfileView extends StatelessWidget{
     );
 
     return scaf;
-
   }
-
 }

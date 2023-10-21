@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 class PostCellView extends StatelessWidget{
 
-  final String sText;
+  final String sNickName;
   final String sBody;
   final String sDate;
   final int iColorCode;
   final double dFontSize;
 
   const PostCellView({super.key,
-    required this.sText,
+    required this.sNickName,
     required this.sBody,
     required this.sDate,
     required this.iColorCode,
@@ -25,8 +25,8 @@ class PostCellView extends StatelessWidget{
       decoration: BoxDecoration(
           color: Colors.white,
       borderRadius: BorderRadius.circular(8)),
-        margin: EdgeInsets.only(top: 25, left: 25, right: 25, bottom: 25),
-        padding: EdgeInsets.all(25),
+        margin: const EdgeInsets.only(top: 25, left: 25, right: 25, bottom: 25),
+        padding: const EdgeInsets.all(25),
         //color: Colors.amber[iColorCode],
         child: Row(
           children: [
@@ -34,11 +34,12 @@ class PostCellView extends StatelessWidget{
             child: Column(
              crossAxisAlignment: CrossAxisAlignment.start,
              children: [
-               Text(sText,style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+               Text(sNickName,style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
                const SizedBox(height: 10,),
                Text(sBody),
                const SizedBox(height: 10,),
                Text(sDate),
+               //"$sNickName • $sDate"
              ],
            )
            )
