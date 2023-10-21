@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../FbClasses/FbPost.dart';
+import '../Services/BottomMenu.dart';
 import '../Services/PostCell.dart';
 import '../Services/PostGridCellView.dart';
 
@@ -40,6 +41,20 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
+  void onBottonMenuPressed(int indice) {
+    // TODO: implement onBottonMenuPressed
+
+      setState(() {
+      if(indice == 0){
+        bIsList=true;
+      }
+      else if(indice==1){
+        bIsList=false;
+      }
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -49,6 +64,7 @@ class _HomeViewState extends State<HomeView> {
       body: Center(
         child: celdasOLista(bIsList),
       ),
+      bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
       //ListView.separated(
       //padding: EdgeInsets.all(8),
       //itemCount: posts.length,
