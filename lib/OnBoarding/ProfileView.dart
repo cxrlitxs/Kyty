@@ -31,6 +31,8 @@ class ProfileView extends StatelessWidget{
 
   void onClickCancel(){
 
+    Navigator.of(_context).popAndPushNamed("/loginview");
+
   }
 
   @override

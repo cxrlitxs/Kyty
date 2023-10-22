@@ -5,12 +5,14 @@ class Personalized_TextFields extends StatelessWidget{
   final controller;
   final String hintText;
   final bool obscuredText;
+  //final bool boolMaxLines;
 
   const Personalized_TextFields ({
     super.key,
     required this.controller,
     required this.hintText,
     required this.obscuredText,
+    //required this.boolMaxLines,
 
   });
 
@@ -23,6 +25,7 @@ class Personalized_TextFields extends StatelessWidget{
       child: TextField(
         controller: controller,
         obscureText: obscuredText,
+        //maxLines: boolMaxLines ? null : 1,
         decoration: InputDecoration(
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.white),
@@ -37,6 +40,5 @@ class Personalized_TextFields extends StatelessWidget{
         ),
       ),
     );
-
   }
 }

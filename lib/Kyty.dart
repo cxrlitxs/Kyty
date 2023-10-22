@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kyty/OnBoarding/NewPostView.dart';
 import 'package:kyty/OnBoarding/RegisterLogin.dart';
 import 'OnBoarding/LoginView.dart';
 import 'OnBoarding/ChangePasswordView.dart';
@@ -19,6 +20,7 @@ class Kyty extends StatelessWidget{
       '/homeview' : (context) => HomeView(),
       '/profileview' : (context) => ProfileView(),
       '/splashview' : (context) => SplashView(),
+      '/newpostview' : (context) => NewPost(),
     },
       initialRoute: '/splashview',
     );

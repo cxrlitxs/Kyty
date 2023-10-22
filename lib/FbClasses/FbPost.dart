@@ -28,7 +28,7 @@ class FbPost{
     return {
       if (nickName != null) "nickName": nickName,
       if (body != null) "cuerpo": body,
-      if (date != null) "date": Timestamp.now(),
+      if (date != null) "date": date,
     };
   }
 

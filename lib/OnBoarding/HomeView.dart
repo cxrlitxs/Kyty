@@ -57,7 +57,7 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void onClickNewPost() {
-    Navigator.of(context).pushNamed("/registerview");
+    Navigator.of(context).pushNamed("/newpostview");
   }
 
   @override
@@ -76,6 +76,11 @@ class _HomeViewState extends State<HomeView> {
       //itemBuilder: creadorDeItemLista,
       //separatorBuilder: creadorDeSeparadorLista,
       //),
+      floatingActionButton: FloatingActionButton(
+        onPressed: onClickNewPost,
+        tooltip: 'Nueva publicación ',
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
