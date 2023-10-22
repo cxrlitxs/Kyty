@@ -97,6 +97,7 @@ class LoginView extends StatelessWidget{
         controller: usernameController,
         hintText: 'Correo',
         obscuredText: false,
+        boolMaxLines: false,
       ),
 
       const SizedBox(height: 10,),
@@ -107,6 +108,7 @@ class LoginView extends StatelessWidget{
         controller: passwordController,
         hintText: 'Contraseña ',
         obscuredText: true,
+        boolMaxLines: false,
       ),
 
       const SizedBox(height: 10,),

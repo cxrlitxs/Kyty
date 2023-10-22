@@ -63,6 +63,7 @@ class ProfileView extends StatelessWidget{
           controller: tecNickName,
           hintText: 'Apodo',
           obscuredText: false,
+          boolMaxLines: false,
         ),
 
         const SizedBox(height: 10,),
@@ -73,6 +74,7 @@ class ProfileView extends StatelessWidget{
           controller: tecFirstName,
           hintText: 'Nombre',
           obscuredText: false,
+          boolMaxLines: false,
         ),
 
         const SizedBox(height: 10,),
@@ -83,6 +85,7 @@ class ProfileView extends StatelessWidget{
           controller: tecLastName,
           hintText: 'Apellidos ',
           obscuredText: false,
+          boolMaxLines: false,
         ),
 
         const SizedBox(height: 10,),
@@ -92,6 +95,7 @@ class ProfileView extends StatelessWidget{
           controller: tecAge,
           hintText: 'Edad ',
           obscuredText: false,
+          boolMaxLines: false,
         ),
 
         const SizedBox(height: 10,),
@@ -101,6 +105,7 @@ class ProfileView extends StatelessWidget{
           controller: tecHeight,
           hintText: 'Altura ',
           obscuredText: false,
+          boolMaxLines: false,
         ),
 
         const SizedBox(height: 25,),

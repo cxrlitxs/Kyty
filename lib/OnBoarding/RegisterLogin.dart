@@ -76,6 +76,7 @@ class RegisterLogin extends StatelessWidget{
           controller: usernameController,
           hintText: 'Correo',
           obscuredText: false,
+          boolMaxLines: false,
         ),
 
         const SizedBox(height: 10,),
@@ -86,6 +87,7 @@ class RegisterLogin extends StatelessWidget{
           controller: passwordController,
           hintText: 'Contraseña ',
           obscuredText: true,
+          boolMaxLines: false,
         ),
 
         const SizedBox(height: 10,),
@@ -96,6 +98,7 @@ class RegisterLogin extends StatelessWidget{
           controller: rePasswordController,
           hintText: 'Repetir contraseña',
           obscuredText: true,
+          boolMaxLines: false,
         ),
 
         const SizedBox(height: 25,),

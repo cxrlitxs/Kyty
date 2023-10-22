@@ -52,6 +52,7 @@ class ChangePasswordView extends StatelessWidget{
             controller: usernameController,
             hintText: 'Correo',
             obscuredText: false,
+            boolMaxLines: false,
           ),
 
           const SizedBox(height: 25,),
