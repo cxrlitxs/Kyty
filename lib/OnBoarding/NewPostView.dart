@@ -39,7 +39,7 @@ class NewPost extends StatelessWidget {
         ),
       );
 
-      Navigator.of(_context).pushNamed("/homeview");
+      Navigator.pushReplacementNamed(_context, '/homeview');
 
     } catch (e) {
       print("Error al agregar el post: $e");
@@ -54,7 +54,7 @@ class NewPost extends StatelessWidget {
   }
 
   void onClickCancel(){
-    Navigator.of(_context).pushNamed("/homeview");
+    Navigator.pushReplacementNamed(_context, '/homeview');
   }
 
   @override

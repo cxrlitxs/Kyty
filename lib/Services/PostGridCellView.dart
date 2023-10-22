@@ -22,14 +22,14 @@ class PostGridCellView extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return FractionallySizedBox(
-        child: Container(
+          child: Container(
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8)),
             margin: const EdgeInsets.only(top: 25, left: 25, right: 25, bottom: 25),
             padding: EdgeInsets.all(25),
             //color: Colors.amber[iColorCode],
-            child: Row(
+              child: Row(
               children: [
                 Expanded(
                     child: Column(
@@ -37,7 +37,8 @@ class PostGridCellView extends StatelessWidget{
                       children: [
                         Text(sNickName,style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
                         const SizedBox(height: 10,),
-                        Text(sBody),
+                        Text(sBody,
+                              overflow: TextOverflow.ellipsis,),
                         const SizedBox(height: 10,),
                         Text(sDate),
                         //"$sNickName • $sDate"

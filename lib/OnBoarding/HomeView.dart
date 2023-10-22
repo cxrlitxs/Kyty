@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../FbClasses/FbPost.dart';
@@ -16,13 +18,15 @@ class _HomeViewState extends State<HomeView> {
 
   FirebaseFirestore db = FirebaseFirestore.instance;
   final List<FbPost> posts = [];
-  bool bIsList = false;
+  bool bIsList = true;
+  late int numAxisCount;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     descargarPosts();
+    getPlatformForNumAxisCount();
   }
 
   void descargarPosts() async{
@@ -34,6 +38,8 @@ class _HomeViewState extends State<HomeView> {
     QuerySnapshot<FbPost> querySnapshot = await ref
         .orderBy("date", descending: true)
         .get();
+
+    posts.clear();
 
     for(int i=0;i<querySnapshot.docs.length;i++){
       setState(() {
@@ -57,8 +63,23 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void onClickNewPost() {
-    Navigator.of(context).pushNamed("/newpostview");
+    Navigator.pushReplacementNamed(context, '/newpostview');
   }
+
+  void getPlatformForNumAxisCount(){
+    if(Platform.isFuchsia) {
+      numAxisCount = 5;
+    }else if (Platform.isAndroid || Platform.isIOS){
+      numAxisCount = 2;
+    }
+  }
+
+  Future<void> _refreshPosts() async {
+    await Future.delayed(const Duration(seconds: 1));
+    descargarPosts();
+    setState(() {});
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +87,8 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       appBar: AppBar(title: Text("KYTY"),
         backgroundColor: Colors.grey[900],),
-      body: Center(
+      body: RefreshIndicator(
+        onRefresh: _refreshPosts,
         child: celdasOLista(bIsList),
       ),
       bottomNavigationBar: BottomMenu(onBotonesClicked: this.onBottonMenuPressed),
@@ -118,6 +140,7 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget celdasOLista(bool isList) {
+
     if (isList) {
       return ListView.separated(
         padding: EdgeInsets.all(8),
@@ -127,7 +150,8 @@ class _HomeViewState extends State<HomeView> {
       );
     } else {
       return GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: numAxisCount),
           itemCount: posts.length,
           itemBuilder: creadorDeItemMatriz
       );
