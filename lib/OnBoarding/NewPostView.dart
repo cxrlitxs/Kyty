@@ -87,7 +87,7 @@ class NewPost extends StatelessWidget {
           controller: tecBody,
           hintText: '¿En qué estás pensando?',
           obscuredText: false,
-          boolMaxLines: false,
+          boolMaxLines: true,
         ),
 
         const SizedBox(height: 25,),
