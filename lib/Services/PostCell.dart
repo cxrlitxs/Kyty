@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PostCellView extends StatelessWidget{
@@ -9,19 +8,26 @@ class PostCellView extends StatelessWidget{
   final String sDate;
   final int iColorCode;
   final double dFontSize;
+  final int iPosition;
+  final Function(int index) onItemListClickedFun;
 
   const PostCellView({super.key,
     required this.sNickName,
     required this.sBody,
     required this.sDate,
     required this.iColorCode,
-    required this.dFontSize});
+    required this.dFontSize,
+    required this.iPosition,
+    required this.onItemListClickedFun,
+
+  });
 
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
+    return InkWell(child:
+      Container(
       decoration: BoxDecoration(
           color: Colors.white,
       borderRadius: BorderRadius.circular(8)),
@@ -45,6 +51,10 @@ class PostCellView extends StatelessWidget{
            )
           ],
           )
+      ),
+        onTap: (){
+      onItemListClickedFun(iPosition);
+    },
     );
   }
 }

@@ -8,6 +8,8 @@ class PostGridCellView extends StatelessWidget{
   final String sDate;
   final int iColorCode;
   final double dFontSize;
+  final int iPosition;
+  final Function(int indice) onItemListClickedFun;
 
   const PostGridCellView({super.key,
     required this.sNickName,
@@ -15,13 +17,16 @@ class PostGridCellView extends StatelessWidget{
     required this.sDate,
     required this.iColorCode,
     required this.dFontSize,
+    required this.iPosition,
+    required this.onItemListClickedFun
   });
 
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return FractionallySizedBox(
+    return InkWell(
+    child: FractionallySizedBox(
           child: Container(
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -48,6 +53,10 @@ class PostGridCellView extends StatelessWidget{
               ],
             )
         ),
-      );
+    ),
+      onTap: () {
+      onItemListClickedFun(iPosition);
+      },
+    );
   }
 }

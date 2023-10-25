@@ -6,6 +6,7 @@ import '../FbClasses/FbPost.dart';
 import '../Services/BottomMenu.dart';
 import '../Services/PostCell.dart';
 import '../Services/PostGridCellView.dart';
+import '../Singletone/DataHolder.dart';
 
 class HomeView extends StatefulWidget{
   @override
@@ -19,14 +20,12 @@ class _HomeViewState extends State<HomeView> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   final List<FbPost> posts = [];
   bool bIsList = true;
-  late int numAxisCount;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     descargarPosts();
-    getPlatformForNumAxisCount();
   }
 
   void descargarPosts() async{
@@ -66,20 +65,16 @@ class _HomeViewState extends State<HomeView> {
     Navigator.pushReplacementNamed(context, '/newpostview');
   }
 
-  void getPlatformForNumAxisCount(){
-    if(Platform.isFuchsia) {
-      numAxisCount = 5;
-    }else if (Platform.isAndroid || Platform.isIOS){
-      numAxisCount = 2;
-    }
-  }
-
   Future<void> _refreshPosts() async {
     await Future.delayed(const Duration(seconds: 1));
     descargarPosts();
     setState(() {});
   }
 
+  void onItemListClicked(int index){
+    DataHolder().selectedPost = posts[index];
+    Navigator.of(context).pushNamed("/postview");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +108,8 @@ class _HomeViewState extends State<HomeView> {
       sDate: posts[index].formattedData(),
       dFontSize: 20,
       iColorCode: 0,
+      iPosition: index,
+      onItemListClickedFun: onItemListClicked,
     );
   }
 
@@ -136,6 +133,8 @@ class _HomeViewState extends State<HomeView> {
       sDate: posts[index].formattedData(),
       dFontSize: 20,
       iColorCode: 0,
+      iPosition: index,
+      onItemListClickedFun: onItemListClicked,
     );
   }
 
@@ -143,15 +142,14 @@ class _HomeViewState extends State<HomeView> {
 
     if (isList) {
       return ListView.separated(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         itemCount: posts.length,
         itemBuilder: creadorDeItemLista,
         separatorBuilder: creadorDeSeparadorLista,
       );
     } else {
       return GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: numAxisCount),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
           itemCount: posts.length,
           itemBuilder: creadorDeItemMatriz
       );
