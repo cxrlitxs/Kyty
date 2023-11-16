@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:kyty/Services/Personalized_Button.dart';
 import '../FbClasses/FbPost.dart';
 import '../Services/BottomMenu.dart';
 import '../Services/PostCell.dart';
@@ -18,6 +21,7 @@ class HomeView extends StatefulWidget{
 
 class _HomeViewState extends State<HomeView> {
 
+  late BuildContext _context;
   FirebaseFirestore db = FirebaseFirestore.instance;
   final List<FbPost> posts = [];
   bool bIsList = true;
@@ -28,10 +32,11 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    descargarPosts();
+    downloadPosts();
+    loadGeoLocator();
   }
 
-  void descargarPosts() async{
+  void downloadPosts() async{
     CollectionReference<FbPost> ref = db.collection("posts")
         .withConverter(fromFirestore: FbPost.fromFirestore,
       toFirestore: (FbPost post, _) => post.toFirestore(),);
@@ -70,7 +75,7 @@ class _HomeViewState extends State<HomeView> {
 
   Future<void> _refreshPosts() async {
     await Future.delayed(const Duration(seconds: 1));
-    descargarPosts();
+    downloadPosts();
     setState(() {});
   }
 
@@ -85,9 +90,63 @@ class _HomeViewState extends State<HomeView> {
     _advancedDrawerController.showDrawer();
   }
 
+  void _showLogoutConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.grey[300],
+          title: Text('¿Estás seguro?'),
+          content: Text('¿Deseas cerrar la sesión?'),
+          actions: <Widget>[
+            Row(
+              children :[
+                Expanded(
+                  child: Personalized_Button(
+                    onTap: () {
+                      Navigator.of(context).pop(); // Cierra el diálogo
+                    },
+                    text: 'Cancelar',
+                    colorBase: Colors.white,
+                    colorText: Colors.black
+                  ),
+                ),
+                Expanded(
+                  child: Personalized_Button(
+                    onTap: signOut,
+                    text: 'Confirmar',
+                    colorBase: Colors.black,
+                    colorText: Colors.white,
+                  ),
+                ),
+              ]
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> signOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Navigator.pushReplacementNamed(context, '/loginview');    } catch (e) {
+      print("Error al cerrar sesión: $e");
+    }
+  }
+
+  void loadGeoLocator() async{
+    Position pos=await DataHolder().geolocAdmin.determinePosition();
+    print("------------>>>> "+pos.toString());
+    DataHolder().geolocAdmin.registrarCambiosLoc();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    _context=context;
+
     return AdvancedDrawer(
         backdrop: Container(
         width: double.infinity,
@@ -163,6 +222,13 @@ class _HomeViewState extends State<HomeView> {
                   leading: const Icon(Icons.settings),
                   title: const Text('Settings'),
                 ),
+                ListTile(
+                  onTap: (){
+                    _showLogoutConfirmationDialog(_context);
+                  },
+                  leading: const Icon(Icons.logout),
+                  title: const Text('Cerrar sesión'),
+                ),
                 const Spacer(),
                 DefaultTextStyle(
                   style: const TextStyle(
@@ -201,7 +267,7 @@ class _HomeViewState extends State<HomeView> {
       ),
       body: RefreshIndicator(
         onRefresh: _refreshPosts,
-        child: celdasOLista(bIsList),
+        child: cellsOList(bIsList),
       ),
       bottomNavigationBar: BottomMenu(onBotonesClicked: onBottonMenuPressed),
       //ListView.separated(
@@ -219,10 +285,11 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget? creadorDeItemLista(BuildContext context, int index){
+  Widget? itemListCreator(BuildContext context, int index){
     return PostCellView(
       sNickName: posts[index].nickName,
       sBody: posts[index].body,
+      sImage: posts[index].sUrlImg,
       sDate: posts[index].formattedData(),
       dFontSize: 20,
       iColorCode: 0,
@@ -231,7 +298,7 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget creadorDeSeparadorLista(BuildContext context, int index) {
+  Widget listSeparatorCreator(BuildContext context, int index) {
     //return Divider(thickness: 5,);
     return Column(
       children: [
@@ -244,7 +311,7 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget? creadorDeItemMatriz(BuildContext context, int index){
+  Widget? matrixItemCreator(BuildContext context, int index){
     return PostGridCellView(
       sNickName: posts[index].nickName,
       sBody: posts[index].body,
@@ -256,20 +323,20 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
-  Widget celdasOLista(bool isList) {
+  Widget cellsOList(bool isList) {
 
     if (isList) {
       return ListView.separated(
         padding: const EdgeInsets.all(8),
         itemCount: posts.length,
-        itemBuilder: creadorDeItemLista,
-        separatorBuilder: creadorDeSeparadorLista,
+        itemBuilder: itemListCreator,
+        separatorBuilder: listSeparatorCreator,
       );
     } else {
       return GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
           itemCount: posts.length,
-          itemBuilder: creadorDeItemMatriz
+          itemBuilder: matrixItemCreator
       );
     }
   }

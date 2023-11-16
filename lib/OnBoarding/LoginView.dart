@@ -67,6 +67,12 @@ class LoginView extends StatelessWidget{
 
   }
 
+  void onClickPhoneLogin(){
+
+    Navigator.pushReplacementNamed(_context, '/phoneloginview');
+
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -76,13 +82,12 @@ class LoginView extends StatelessWidget{
     Column column = Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-      const SizedBox(height: 20,),
-      
+
       //logo kyty
-      Image.asset("resources/logo_kyty.png", width: 300, height: 300),
+      Image.asset("resources/logo_kyty.png", width: 200, height: 200),
       
       
-      const SizedBox(height: 20,),
+      const SizedBox(height: 10,),
       
       //welcome text
       Text('¡Bienvenido de nuevo!',
@@ -174,20 +179,25 @@ class LoginView extends StatelessWidget{
         ),
       ),
 
-      //Google & Apple
+      //Google & Apple & Phone
 
       const SizedBox(height: 50,),
 
-      const Row(
+      Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           //Google
-          login_logo(imageRoute: 'resources/logo_google.png'),
+          login_logo(imageRoute: 'resources/logo_phone.png', onTap: onClickPhoneLogin,),
 
-          SizedBox(width: 25,),
+          const SizedBox(width: 25,),
+
+          //Google
+          login_logo(imageRoute: 'resources/logo_google.png', onTap: (){},),
+
+          const SizedBox(width: 25,),
 
           //Apple
-          login_logo(imageRoute: 'resources/logo_apple.png'),
+          login_logo(imageRoute: 'resources/logo_apple.png', onTap: (){},),
         ],),
 
       const SizedBox(height: 50,),

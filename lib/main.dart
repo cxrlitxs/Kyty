@@ -9,6 +9,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+
   Kyty kytyApp = Kyty();
   runApp(kytyApp);
 }

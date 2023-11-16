@@ -10,6 +10,7 @@ class PostCellView extends StatelessWidget{
   final double dFontSize;
   final int iPosition;
   final Function(int index) onItemListClickedFun;
+  final String sImage;
 
   const PostCellView({super.key,
     required this.sNickName,
@@ -19,6 +20,7 @@ class PostCellView extends StatelessWidget{
     required this.dFontSize,
     required this.iPosition,
     required this.onItemListClickedFun,
+    required this.sImage,
 
   });
 
@@ -43,6 +45,17 @@ class PostCellView extends StatelessWidget{
                Text(sNickName,style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
                const SizedBox(height: 10,),
                Text(sBody),
+               sImage.isEmpty
+               ? Column()
+               : Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     const SizedBox(height: 10,),
+                     Text('Imágen:'),
+                     const SizedBox(height: 10,),
+                     Image.network(sImage)
+                   ]
+               ),
                const SizedBox(height: 10,),
                Text(sDate),
                //"$sNickName • $sDate"

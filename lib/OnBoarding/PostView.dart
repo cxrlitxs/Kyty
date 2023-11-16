@@ -15,9 +15,15 @@ class PostView extends StatelessWidget{
         children: [
           Text(DataHolder().selectedPost.nickName),
           Text(DataHolder().selectedPost.body),
+          DataHolder().selectedPost.sUrlImg.isEmpty
+              ? Container()
+              : Column(children: [
+                  const SizedBox(height: 10,),
+                  Image.network(DataHolder().selectedPost.sUrlImg),
+                  const SizedBox(height: 10,),
+          ]),
           Text(DataHolder().selectedPost.formattedData()),
         ],
-
       ),
     );
   }
