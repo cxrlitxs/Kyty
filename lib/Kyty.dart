@@ -11,10 +11,14 @@ import 'OnBoarding/PostView.dart';
 import 'OnBoarding/ProfileView.dart';
 import 'package:kyty/Splash/SplashView.dart';
 
+import 'Singletone/DataHolder.dart';
+
 class Kyty extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+
+    DataHolder().initPlatformAdmin(context);
 
     MaterialApp materialApp;
     if(kIsWeb) {

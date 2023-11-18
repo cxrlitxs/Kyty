@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kyty/FbClasses/FbUser.dart';
 
+import '../Singletone/DataHolder.dart';
+
 class ProfileView extends StatelessWidget{
 
   FirebaseFirestore db = FirebaseFirestore.instance;
@@ -14,6 +16,7 @@ class ProfileView extends StatelessWidget{
   TextEditingController tecLastName = TextEditingController();
   TextEditingController tecAge = TextEditingController();
   TextEditingController tecHeight = TextEditingController();
+  final routeImagePath = DataHolder().imagePath;
 
   void onClickContinue() async {
 
@@ -45,7 +48,7 @@ class ProfileView extends StatelessWidget{
         const SizedBox(height: 50,),
 
         //logo kyty
-        Image.asset("resources/logo_kyty.png", width: 300, height: 300),
+        Image.asset("$routeImagePath/logo_kyty.png", width: 300, height: 300),
 
 
         const SizedBox(height: 50,),

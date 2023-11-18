@@ -3,11 +3,14 @@ import 'package:kyty/Services/Personalized_Button.dart';
 import 'package:kyty/Services/Personalized_TextFields.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../Singletone/DataHolder.dart';
+
 class ChangePasswordView extends StatelessWidget{
 
     //Constants
     late BuildContext _context;
     final usernameController = TextEditingController();
+    final routeImagePath = DataHolder().imagePath;
 
     //Methods
 
@@ -34,7 +37,7 @@ class ChangePasswordView extends StatelessWidget{
           const SizedBox(height: 50,),
 
           //logo kyty
-          Image.asset("resources/logo_kyty.png", width: 300, height: 300),
+          Image.asset("$routeImagePath/logo_kyty.png", width: 300, height: 300),
 
 
           const SizedBox(height: 50,),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../Services/Personalized_Button.dart';
 import '../Services/Personalized_TextFields.dart';
 import '../Services/Personalized_SnackBar.dart';
+import '../Singletone/DataHolder.dart';
 
 class RegisterLogin extends StatelessWidget{
 
@@ -12,6 +13,7 @@ class RegisterLogin extends StatelessWidget{
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final rePasswordController = TextEditingController();
+  final routeImagePath = DataHolder().imagePath;
 
   //Methods
 
@@ -58,7 +60,7 @@ class RegisterLogin extends StatelessWidget{
         const SizedBox(height: 50,),
 
         //logo kyty
-        Image.asset("resources/logo_kyty.png", width: 300, height: 300),
+        Image.asset("$routeImagePath/logo_kyty.png", width: 300, height: 300),
 
 
         const SizedBox(height: 50,),

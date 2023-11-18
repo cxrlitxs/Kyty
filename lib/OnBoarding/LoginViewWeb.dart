@@ -4,6 +4,7 @@ import 'package:kyty/Services/Personalized_SnackBar.dart';
 import 'package:kyty/Services/Personalized_TextFields.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kyty/Singletone/DataHolder.dart';
 
 import '../Services/login_logo.dart';
 
@@ -14,6 +15,7 @@ class LoginViewWeb extends StatelessWidget{
   late BuildContext _context;
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  final routeImagePath = DataHolder().imagePath;
 
   //Methods
 
@@ -79,7 +81,7 @@ class LoginViewWeb extends StatelessWidget{
         const SizedBox(height: 20,),
 
         //logo kyty
-        Image.asset("resources/logo_kyty.png", width: 300, height: 300),
+        Image.asset( "$routeImagePath/logo_kyty.png", width: 300, height: 300),
 
 
         const SizedBox(height: 20,),
@@ -178,16 +180,16 @@ class LoginViewWeb extends StatelessWidget{
 
         const SizedBox(height: 50,),
 
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //Google
-            login_logo(imageRoute: 'resources/logo_google.png'),
+            login_logo(imageRoute: '$routeImagePath/logo_google.png'),
 
-            SizedBox(width: 25,),
+            const SizedBox(width: 25,),
 
             //Apple
-            login_logo(imageRoute: 'resources/logo_apple.png'),
+            login_logo(imageRoute: '$routeImagePath/logo_apple.png'),
           ],),
 
         const SizedBox(height: 50,),

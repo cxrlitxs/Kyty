@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../FbClasses/FbPost.dart';
@@ -15,6 +17,7 @@ class DataHolder {
   FirebaseFirestore db = FirebaseFirestore.instance;
   GeolocAdmin geolocAdmin = GeolocAdmin();
   late PlatformAdmin platformAdmin;
+  late String imagePath;
 
   DataHolder._internal() {
     sPostTitle="Titulo de Post";
@@ -25,7 +28,8 @@ class DataHolder {
   }
 
   void initPlatformAdmin(BuildContext context){
-    platformAdmin=PlatformAdmin(context: context);
+    platformAdmin = PlatformAdmin(context: context);
+    imagePath = platformAdmin.getImagePath();
   }
 
   Future<void> insertPostEnFB(FbPost newPost) async {

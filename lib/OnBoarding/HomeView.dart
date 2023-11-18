@@ -26,6 +26,7 @@ class _HomeViewState extends State<HomeView> {
   final List<FbPost> posts = [];
   bool bIsList = true;
   final _advancedDrawerController = AdvancedDrawerController();
+  final routeImagePath = DataHolder().imagePath;
 
 
   @override

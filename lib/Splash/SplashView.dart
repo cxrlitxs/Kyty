@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kyty/FbClasses/FbUser.dart';
 
+import '../Singletone/DataHolder.dart';
+
 class SplashView extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -15,6 +17,9 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView>{
 
   FirebaseFirestore db = FirebaseFirestore.instance;
+  final routeImagePath = DataHolder().imagePath;
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -65,7 +70,7 @@ class _SplashViewState extends State<SplashView>{
         const SizedBox(height: 50,),
 
         //logo kyty
-        Image.asset("resources/logo_kyty.png", width: 300, height: 300),
+        Image.asset("$routeImagePath/logo_kyty.png", width: 300, height: 300),
 
 
         const SizedBox(height: 50,),

@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../Services/login_logo.dart';
+import '../Singletone/DataHolder.dart';
 
 class LoginView extends StatelessWidget{
 
@@ -14,6 +15,7 @@ class LoginView extends StatelessWidget{
   late BuildContext _context;
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  final routeImagePath = DataHolder().imagePath;
 
   //Methods
 
@@ -84,7 +86,7 @@ class LoginView extends StatelessWidget{
       children: [
 
       //logo kyty
-      Image.asset("resources/logo_kyty.png", width: 200, height: 200),
+      Image.asset("$routeImagePath/logo_kyty.png", width: 200, height: 200),
       
       
       const SizedBox(height: 10,),
@@ -187,17 +189,17 @@ class LoginView extends StatelessWidget{
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           //Google
-          login_logo(imageRoute: 'resources/logo_phone.png', onTap: onClickPhoneLogin,),
+          login_logo(imageRoute: '$routeImagePath/logo_phone.png', onTap: onClickPhoneLogin,),
 
           const SizedBox(width: 25,),
 
           //Google
-          login_logo(imageRoute: 'resources/logo_google.png', onTap: (){},),
+          login_logo(imageRoute: '$routeImagePath/logo_google.png', onTap: (){},),
 
           const SizedBox(width: 25,),
 
           //Apple
-          login_logo(imageRoute: 'resources/logo_apple.png', onTap: (){},),
+          login_logo(imageRoute: '$routeImagePath/logo_apple.png', onTap: (){},),
         ],),
 
       const SizedBox(height: 50,),

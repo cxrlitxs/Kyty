@@ -18,15 +18,13 @@ class NewPost extends StatefulWidget {
 }
 
 class _NewPostState extends State<NewPost> {
+
   FirebaseFirestore db = FirebaseFirestore.instance;
-
   late BuildContext _context;
-
   TextEditingController tecBody = TextEditingController();
-
   ImagePicker _picker = ImagePicker();
-
   File _imagePreview = File("");
+  final routeImagePath = DataHolder().imagePath;
 
   void onClickPost() async {
     try {
@@ -169,7 +167,7 @@ class _NewPostState extends State<NewPost> {
         const SizedBox(height: 50,),
 
         //logo kyty
-        Image.asset("resources/logo_kyty.png", width: 300, height: 300),
+        Image.asset("$routeImagePath/logo_kyty.png", width: 300, height: 300),
 
 
         const SizedBox(height: 50,),

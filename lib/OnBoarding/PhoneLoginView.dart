@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kyty/Services/Personalized_TextFields.dart';
 
+import '../Singletone/DataHolder.dart';
+
 class PhoneLoginView extends StatefulWidget{
   @override
   State<PhoneLoginView> createState() => _PhoneLoginViewState();
