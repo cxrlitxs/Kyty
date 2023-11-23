@@ -4,7 +4,7 @@ import 'package:kyty/Services/Personalized_SnackBar.dart';
 import 'package:kyty/Services/Personalized_TextFields.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import '../FbClasses/FbUser.dart';
 import '../Services/login_logo.dart';
 import '../Singletone/DataHolder.dart';
 
@@ -27,14 +27,15 @@ class LoginView extends StatelessWidget{
       );
       print("CORRECT LOGIN");
 
-      String uid = FirebaseAuth.instance.currentUser!.uid;
-      DocumentSnapshot<Map<String, dynamic>> datos = await db.collection("users").doc(uid).get();
-      if(datos.exists){
-        print("EL NOMBRE DEL USUARIO LOGEADO ES: "+datos.data()?["nickName"]);
-        print("EL NOMBRE DEL USUARIO LOGEADO ES: "+datos.data()?["firstName"]);
-        print("EL NOMBRE DEL USUARIO LOGEADO ES: "+datos.data()?["lastName"]);
-        print("LA EDAD DEL USUARIO LOGEADO ES: "+datos.data()!["age"].toString());
-        print("LA ALTURA DEL USUARIO LOGEADO ES: "+datos.data()!["tall"].toString());
+      FbUser? user= await DataHolder().loadFbUser();
+
+      if(user!=null){
+        print("EL NICKNAME DEL USUARIO LOGEADO ES: "+user.nickName);
+        print("EL NOMBRE DEL USUARIO LOGEADO ES: "+user.firstName);
+        print("EL APELLIDO DEL USUARIO LOGEADO ES: "+user.lastName);
+        print("LA EDAD DEL USUARIO LOGEADO ES: "+user.age.toString());
+        print("LA ALTURA DEL USUARIO LOGEADO ES: "+user.height.toString());
+        print("LA ALTURA DEL USUARIO LOGEADO ES: "+user.geoloc.toString());
         Navigator.of(_context).popAndPushNamed("/homeview");
       }
       else{

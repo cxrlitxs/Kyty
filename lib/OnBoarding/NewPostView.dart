@@ -64,7 +64,7 @@ class _NewPostState extends State<NewPost> {
 
       FbPost newPost = FbPost(nickName: nickName, body: tecBody.text, sUrlImg: imgUrl, date: Timestamp.now());
 
-      DataHolder().insertPostEnFB(newPost);
+      DataHolder().insertPostInFB(newPost);
 
       //-----------------------FIN DE SUBIR POST--------
 

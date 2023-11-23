@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +32,9 @@ class _HomeViewState extends State<HomeView> {
     // TODO: implement initState
     super.initState();
     downloadPosts();
-    loadGeoLocator();
+    determineLocalTemp();
+    DataHolder().subscribeAChangesGPSUser();
+    //loadGeoLocator();
   }
 
   void downloadPosts() async{
@@ -56,6 +56,19 @@ class _HomeViewState extends State<HomeView> {
       );
     }
   }
+
+  void determineLocalTemp() async{
+    Position position = await DataHolder().geolocAdmin.determinePosition();
+    double value = await DataHolder().httpAdmin.askTemperaturesIn(position.latitude,position.longitude);
+    print("LA TEMPERATURA EN EL SITIO DONDE ESTAS ES: $value");
+  }
+
+  /*void loadGeoLocator() async{
+    Position pos=await DataHolder().geolocAdmin.determinePosition();
+    print("------------>>>> "+pos.toString());
+    //DataHolder().geolocAdmin.registrarCambiosLoc();
+
+  }*/
 
   void onBottonMenuPressed(int indice) {
     // TODO: implement onBottonMenuPressed
@@ -131,16 +144,10 @@ class _HomeViewState extends State<HomeView> {
   Future<void> signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
-      Navigator.pushReplacementNamed(context, '/loginview');    } catch (e) {
+      Navigator.pushReplacementNamed(context, '/loginview');
+    } catch (e) {
       print("Error al cerrar sesión: $e");
     }
-  }
-
-  void loadGeoLocator() async{
-    Position pos=await DataHolder().geolocAdmin.determinePosition();
-    print("------------>>>> "+pos.toString());
-    DataHolder().geolocAdmin.registrarCambiosLoc();
-
   }
 
   @override
@@ -200,7 +207,7 @@ class _HomeViewState extends State<HomeView> {
                     shape: BoxShape.circle,
                   ),
                   child: Image.asset(
-                    'resources/logo_kyty.png',
+                    '$routeImagePath/logo_kyty.png',
                   ),
                 ),
                 ListTile(

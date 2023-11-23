@@ -21,7 +21,7 @@ class ProfileView extends StatelessWidget{
   void onClickContinue() async {
 
     FbUser user = FbUser(nickName: tecNickName.text, firstName: tecFirstName.text, lastName: tecLastName.text,
-        age: int.parse(tecAge.text), height: double.parse(tecHeight.text),);
+        age: int.parse(tecAge.text), height: double.parse(tecHeight.text), geoloc: GeoPoint(0,0));
 
 
     //Create document with ID

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kyty/FbClasses/FbUser.dart';
-
 import '../Singletone/DataHolder.dart';
 
 class SplashView extends StatefulWidget {
@@ -28,19 +27,10 @@ class _SplashViewState extends State<SplashView>{
   }
 
   void checkSession() async{
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 3));
     if (FirebaseAuth.instance.currentUser != null) {
 
-      String uid = FirebaseAuth.instance.currentUser!.uid;
-
-      DocumentReference<FbUser> ref = db.collection("users")
-          .doc(uid)
-          .withConverter(fromFirestore: FbUser.fromFirestore,
-        toFirestore: (FbUser user, _) => user.toFirestore(),);
-
-
-      DocumentSnapshot<FbUser> docSnap=await ref.get();
-      FbUser user = docSnap.data()!;
+      FbUser? user = await DataHolder().loadFbUser();
 
       if(user!=null){
         print("EL NOMBRE DEL USUARIO LOGEADO ES: " + user.firstName);

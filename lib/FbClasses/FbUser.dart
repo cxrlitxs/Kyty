@@ -7,13 +7,15 @@ class FbUser {
   final String lastName;
   final int age;
   final double height;
+  GeoPoint geoloc;
 
   FbUser ({
     required this.nickName,
     required this.firstName,
     required this.lastName,
     required this.age,
-    required this.height
+    required this.height,
+    required this.geoloc
   });
 
   factory FbUser.fromFirestore (
@@ -22,11 +24,12 @@ class FbUser {
       ) {
     final data = snapshot.data();
     return FbUser(
-        nickName: data?['nickName'],
-        firstName: data?['firstName'],
-        lastName: data?['lastName'],
-        age: data?['age'],
-        height:data?['height']
+        nickName: data?['nickName'] != null ? data!['nickName'] : "",
+        firstName: data?['firstName'] != null ? data!['firstName'] : "",
+        lastName: data?['lastName'] != null ? data!['lastName'] : "",
+        age: data?['age'] != null ? data!['age'] : 0,
+        height:data?['height'] != null ? data!['height'] : 0,
+        geoloc:data?['geoloc'] != null ? data!['geoloc'] : GeoPoint(0, 0),
     );
   }
 
@@ -37,6 +40,7 @@ class FbUser {
       if (lastName != null) "lastName": lastName,
       if (age != null) "age": age,
       if (height != null) "height": height,
+      if (geoloc != null) "geoloc": geoloc,
     };
   }
 }
