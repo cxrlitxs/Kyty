@@ -9,6 +9,7 @@ class PostGridCellView extends StatelessWidget{
   final int iColorCode;
   final double dFontSize;
   final int iPosition;
+  final String sImage;
   final Function(int indice) onItemListClickedFun;
 
   const PostGridCellView({super.key,
@@ -18,7 +19,8 @@ class PostGridCellView extends StatelessWidget{
     required this.iColorCode,
     required this.dFontSize,
     required this.iPosition,
-    required this.onItemListClickedFun
+    required this.onItemListClickedFun,
+    required this.sImage,
   });
 
 
@@ -45,6 +47,17 @@ class PostGridCellView extends StatelessWidget{
                         Text(sBody,
                               overflow: TextOverflow.ellipsis,),
                         const SizedBox(height: 10,),
+                        sImage.isEmpty
+                            ? Column()
+                            : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 10,),
+                              Text('Imagen:'),
+                              const SizedBox(height: 10,),
+                              Image.network(sImage)
+                            ]
+                        ),
                         Text(sDate),
                         //"$sNickName • $sDate"
                       ],

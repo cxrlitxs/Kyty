@@ -51,7 +51,7 @@ class PostCellView extends StatelessWidget{
                    crossAxisAlignment: CrossAxisAlignment.start,
                    children: [
                      const SizedBox(height: 10,),
-                     Text('Imágen:'),
+                     Text('Imagen:'),
                      const SizedBox(height: 10,),
                      Image.network(sImage)
                    ]

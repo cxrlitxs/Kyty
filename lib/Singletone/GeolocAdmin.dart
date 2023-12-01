@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
 
 class GeolocAdmin{
@@ -50,9 +51,14 @@ class GeolocAdmin{
       accuracy: LocationAccuracy.high,
       distanceFilter: 10,
     );
-    //print("ENTRE!!!!!!!!!!");
-    StreamSubscription<Position> positionStream =
-    Geolocator.getPositionStream(locationSettings: locationSettings)
-        .listen(funCambioPos);
+    if(FirebaseAuth.instance.currentUser != null) {
+      StreamSubscription<Position> positionStream =
+      Geolocator.getPositionStream(locationSettings: locationSettings)
+          .listen(funCambioPos);
+    } else {
+      StreamSubscription<Position> positionStream =
+      Geolocator.getPositionStream(locationSettings: locationSettings)
+          .listen(funCambioPos).cancel() as StreamSubscription<Position>;
+    }
   }
 }

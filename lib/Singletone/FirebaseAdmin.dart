@@ -9,9 +9,7 @@ class FirebaseAdmin{
 
   void updateUserProfile(FbUser user) async{
     //Crear documento con ID NUESTRO (o proporcionado por nosotros)
-    if(FirebaseAuth.instance.currentUser != null ) {
       String uidUsuario = FirebaseAuth.instance.currentUser!.uid;
       await db.collection("users").doc(uidUsuario).set(user.toFirestore());
-    }
   }
 }

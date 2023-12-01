@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:kyty/OnBoarding/LoginViewWeb.dart';
 import 'package:kyty/OnBoarding/NewPostView.dart';
 import 'package:kyty/OnBoarding/RegisterLogin.dart';
+import 'OnBoarding/GestionAdministracion.dart';
 import 'OnBoarding/LoginView.dart';
 import 'OnBoarding/ChangePasswordView.dart';
 import 'OnBoarding/HomeView.dart';
+import 'OnBoarding/HomeViewWeb.dart';
 import 'OnBoarding/PhoneLoginView.dart';
 import 'OnBoarding/PostView.dart';
 import 'OnBoarding/ProfileView.dart';
 import 'package:kyty/Splash/SplashView.dart';
-
 import 'Singletone/DataHolder.dart';
 
 class Kyty extends StatelessWidget{
@@ -27,12 +28,12 @@ class Kyty extends StatelessWidget{
           '/loginview': (context) => LoginViewWeb(),
           '/registerview': (context) => RegisterLogin(),
           '/changepassword': (context) => ChangePasswordView(),
-          '/homeview': (context) => HomeView(),
+          '/homeview': (context) => HomeViewWeb(),
           '/profileview': (context) => ProfileView(),
           '/splashview': (context) => SplashView(),
           '/newpostview': (context) => NewPost(),
           '/postview': (context) => PostView(),
-
+          '/gestion-administracion' : (context) => GestionAdministracion(),
         },
         initialRoute: '/splashview',
       );
