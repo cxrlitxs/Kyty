@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Services/Personalized_Button.dart';
+import '../Services/Personalized_Combo.dart';
 import '../Services/Personalized_TextFields.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,8 +8,13 @@ import 'package:kyty/FbClasses/FbUser.dart';
 
 import '../Singletone/DataHolder.dart';
 
-class ProfileView extends StatelessWidget{
+class ProfileView extends StatefulWidget{
 
+  @override
+  State<ProfileView> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends State<ProfileView> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   late BuildContext _context;
   TextEditingController tecNickName = TextEditingController();
@@ -17,11 +23,30 @@ class ProfileView extends StatelessWidget{
   TextEditingController tecAge = TextEditingController();
   TextEditingController tecHeight = TextEditingController();
   final routeImagePath = DataHolder().imagePath;
+  String itemSeleccionadoPokemon = 'Ninguno';
+  List<String> pokemons = ['Ninguno', 'Descargando Pokémons...'];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    inicializarListaPokemons();
+  }
+
+  // Método para inicializar la lista de pokemons
+  void inicializarListaPokemons() {
+    DataHolder().httpAdmin.obtenerTiposDePokemons().then((tiposDePokemons) {
+      this.pokemons = tiposDePokemons;
+      setState(() {
+
+      });
+    });
+  }
 
   void onClickContinue() async {
 
     FbUser user = FbUser(nickName: tecNickName.text, firstName: tecFirstName.text, lastName: tecLastName.text,
-        age: int.parse(tecAge.text), height: double.parse(tecHeight.text), geoloc: GeoPoint(0,0));
+        age: int.parse(tecAge.text), height: double.parse(tecHeight.text), geoloc: GeoPoint(0,0), pokemonFavorito: itemSeleccionadoPokemon);
 
 
     //Create document with ID
@@ -112,6 +137,13 @@ class ProfileView extends StatelessWidget{
         ),
 
         const SizedBox(height: 25,),
+
+        MyCombo(options: pokemons, text: "Selecciona tu Pokémon favorito", onItemSelected: (selectedItem) {
+          itemSeleccionadoPokemon = selectedItem;
+        },),
+
+        const SizedBox(height: 25,),
+
 
         //continue button
 

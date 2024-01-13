@@ -8,6 +8,7 @@ class FbUser {
   final int age;
   final double height;
   GeoPoint geoloc;
+  String pokemonFavorito;
 
   FbUser ({
     required this.nickName,
@@ -15,7 +16,8 @@ class FbUser {
     required this.lastName,
     required this.age,
     required this.height,
-    required this.geoloc
+    required this.geoloc,
+    required this.pokemonFavorito
   });
 
   factory FbUser.fromFirestore (
@@ -30,6 +32,7 @@ class FbUser {
         age: data?['age'] != null ? data!['age'] : 0,
         height:data?['height'] != null ? data!['height'] : 0,
         geoloc:data?['geoloc'] != null ? data!['geoloc'] : GeoPoint(0, 0),
+      pokemonFavorito: data?['pokemonFavorito'] != null ? data!['pokemonFavorito'] : "",
     );
   }
 
@@ -41,6 +44,7 @@ class FbUser {
       if (age != null) "age": age,
       if (height != null) "height": height,
       if (geoloc != null) "geoloc": geoloc,
+      if (pokemonFavorito != null) "pokemonFavorito": pokemonFavorito,
     };
   }
 }

@@ -48,7 +48,11 @@ class DataHolder {
   }
 
   Future<FbUser?> loadFbUser() async{
-    String uid = FirebaseAuth.instance.currentUser!.uid;
+    var currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser == null) {
+      return null;
+    }
+    String uid = currentUser.uid;
 
     DocumentReference<FbUser> ref = db.collection("users")
         .doc(uid)
@@ -57,7 +61,11 @@ class DataHolder {
 
 
     DocumentSnapshot<FbUser> docSnap=await ref.get();
-    user=docSnap.data()!;
+    FbUser? user = docSnap.data();
+    if (user == null) {
+      return null;
+    }
+
     return user;
   }
 
