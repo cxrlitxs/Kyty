@@ -23,6 +23,8 @@ class _HomeViewState extends State<HomeView> {
   final _advancedDrawerController = AdvancedDrawerController();
   final routeImagePath = DataHolder().imagePath;
   String temperatura = "Cargando temperatura...";
+  bool isSearchOpen = false;
+  String searchQuery = "";
 
 
   @override
@@ -34,6 +36,8 @@ class _HomeViewState extends State<HomeView> {
     DataHolder().subscribeAChangesGPSUser();
     //loadGeoLocator();
   }
+
+
 
   void downloadPosts() async{
     CollectionReference<FbPost> ref = db.collection("posts")
@@ -54,6 +58,7 @@ class _HomeViewState extends State<HomeView> {
       );
     }
   }
+
 
   // Método para inicializar la temperatura
 
@@ -142,6 +147,30 @@ class _HomeViewState extends State<HomeView> {
     } catch (e) {
       print("Error al cerrar sesión: $e");
     }
+  }
+
+  void handleSearch(String searchQuery) async {
+    CollectionReference<FbPost> ref = db.collection("posts")
+        .withConverter(fromFirestore: FbPost.fromFirestore,
+      toFirestore: (FbPost post, _) => post.toFirestore(),);
+
+    //Decidí no poner titulo por lo que filtro por apodo
+    QuerySnapshot<FbPost> querySnapshot = await ref
+        .where("nickName", isEqualTo: searchQuery)
+        .get();
+
+    List<FbPost> newPosts = querySnapshot.docs
+        .map((doc) => doc.data())
+        .toList();
+
+    posts.clear();
+        setState(() {
+          posts.clear();
+          posts.addAll(newPosts);
+        }
+        );
+
+    print("Buscando: $searchQuery");
   }
 
   @override
@@ -252,6 +281,16 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(title: Text(temperatura, style: TextStyle(color: Colors.white),),
         centerTitle: true,
         backgroundColor: Colors.grey[900],
+        actions: [
+          IconButton(
+            icon: Icon(isSearchOpen ? Icons.arrow_drop_up_outlined : Icons.arrow_drop_down_outlined, color: Colors.white,),
+            onPressed: () {
+              setState(() {
+                isSearchOpen = !isSearchOpen; // Cambia el estado para mostrar/ocultar el campo de búsqueda
+              });
+            },
+          ),
+        ],
         leading: IconButton(
           onPressed: _handleMenuButtonPressed,
           icon: ValueListenableBuilder<AdvancedDrawerValue>(
@@ -269,14 +308,79 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
       ),
-      body: RefreshIndicator(
-        onRefresh: _refreshPosts,
-        child:ListView.separated(
-          padding: const EdgeInsets.all(8),
-          itemCount: posts.length,
-          itemBuilder: itemListCreator,
-          separatorBuilder: listSeparatorCreator,
-        ),
+
+      body: Column(
+        children: [
+          AnimatedContainer(
+            duration: Duration(milliseconds: 500),
+            height: isSearchOpen ? 130 : 0,
+            color: Colors.grey[900],
+            padding: EdgeInsets.all(8),
+            child: isSearchOpen ?
+            Column(children: [
+              Row(
+                children: [
+                  SizedBox(height: 2,),
+                  Expanded(
+                    child: TextField(
+                      style: TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Filtrar por apodo...',
+                        hintStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(color: Colors.white),
+
+                          enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white), // Color del borde cuando el TextField está habilitado pero no enfocado
+                        ),
+
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white), // Color del borde cuando el TextField está enfocado
+                        ),
+                      ),
+                      onChanged: (value) {
+                        searchQuery = value; // Actualiza el término de búsqueda
+                      },
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.search, color: Colors.white,),
+                    onPressed: (){
+                      handleSearch(searchQuery);
+                    }, // Llama a la función de búsqueda
+                  ),
+                ],
+              ),
+              TextButton(onPressed: (){
+                downloadPosts();
+              }, child: const Text("Borrar filtro",
+                style: TextStyle(
+                  color: Colors.blue,
+                ),
+              ),
+              ),
+            ],
+            ) : null,
+          ),
+          Expanded(
+            child: RefreshIndicator(
+              onRefresh: _refreshPosts,
+              child: posts.isEmpty
+                  ? Center(
+                child: Text(
+                  'No hay resultados.',
+                  style: TextStyle(fontSize: 18.0, color: Colors.grey),
+                ),
+              )
+                  : ListView.separated(
+                padding: const EdgeInsets.all(8),
+                itemCount: posts.length,
+                itemBuilder: itemListCreator,
+                separatorBuilder: listSeparatorCreator,
+              ),
+            ),
+          ),
+        ],
       ),
       //ListView.separated(
       //padding: EdgeInsets.all(8),
@@ -286,8 +390,9 @@ class _HomeViewState extends State<HomeView> {
       //),
       floatingActionButton: FloatingActionButton(
         onPressed: onClickNewPost,
+        backgroundColor: Colors.blue,
         tooltip: 'Nueva publicación ',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.add, color: Colors.white,),
       ),
     ),
     );
