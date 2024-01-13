@@ -22,7 +22,7 @@ class DataHolder {
   late String imagePath;
   HttpAdmin httpAdmin = HttpAdmin();
   FirebaseAdmin fbadmin = FirebaseAdmin();
-  late FbUser user;
+  late FbUser FBuser;
 
   DataHolder._internal() {
     sPostTitle="Titulo de Post";
@@ -62,6 +62,8 @@ class DataHolder {
 
     DocumentSnapshot<FbUser> docSnap=await ref.get();
     FbUser? user = docSnap.data();
+    FBuser = user!;
+
     if (user == null) {
       return null;
     }
@@ -75,8 +77,8 @@ class DataHolder {
   }
 
   void mobilePositionChange(Position? position){
-    user.geoloc = GeoPoint(position!.latitude, position.longitude);
-    fbadmin.updateUserProfile(user);
+    FBuser.geoloc = GeoPoint(position!.latitude, position.longitude);
+    fbadmin.updateUserProfile(FBuser);
   }
 
 }

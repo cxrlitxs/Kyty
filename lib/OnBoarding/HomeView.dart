@@ -234,7 +234,9 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(_context).popAndPushNamed("/homeview");
+                  },
                   leading: const Icon(Icons.home),
                   title: const Text('Home'),
                 ),
@@ -247,6 +249,13 @@ class _HomeViewState extends State<HomeView> {
                   onTap: () {},
                   leading: const Icon(Icons.favorite),
                   title: const Text('Favorites'),
+                ),
+                ListTile(
+                  onTap: () {
+                    Navigator.of(_context).popAndPushNamed("/mapview");
+                  },
+                  leading: const Icon(Icons.map_outlined),
+                  title: const Text('View map'),
                 ),
                 ListTile(
                   onTap: () {},
@@ -278,12 +287,22 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
     ), child: Scaffold(
-      appBar: AppBar(title: Text(temperatura, style: TextStyle(color: Colors.white),),
+      appBar: AppBar(title: Text(temperatura, style: TextStyle(color: Colors.white, fontSize: 20),),
         centerTitle: true,
         backgroundColor: Colors.grey[900],
         actions: [
-          IconButton(
-            icon: Icon(isSearchOpen ? Icons.arrow_drop_up_outlined : Icons.arrow_drop_down_outlined, color: Colors.white,),
+          TextButton(
+            style: TextButton.styleFrom(backgroundColor: Colors.grey[900]),
+            child: Row(
+              children: [
+                Text("Filtrar", style: TextStyle(color: Colors.white, fontSize: 15),),
+                Icon(isSearchOpen
+                    ? Icons.arrow_drop_up_outlined
+                    : Icons.arrow_drop_down_outlined,
+                    color: Colors.white,
+                )
+              ],
+            ),
             onPressed: () {
               setState(() {
                 isSearchOpen = !isSearchOpen; // Cambia el estado para mostrar/ocultar el campo de búsqueda
