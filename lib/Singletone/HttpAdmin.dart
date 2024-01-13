@@ -45,4 +45,23 @@ class HttpAdmin{
       return 0;
     }
   }
+
+  Future<List<String>> obtenerTiposDePokemons() async{
+    var url = Uri.https('pokeapi.co', '/api/v2/pokemon/');
+
+    var response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+      var results = jsonResponse['results'] as List<dynamic>;
+
+      List<String> nombres = results.map<String>((result) => result['name'] as String).toList();
+      nombres.add('Ninguno');
+      return nombres;
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+      return [];
+    }
+  }
+
 }

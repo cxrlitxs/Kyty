@@ -22,6 +22,7 @@ class _HomeViewState extends State<HomeView> {
   final List<FbPost> posts = [];
   final _advancedDrawerController = AdvancedDrawerController();
   final routeImagePath = DataHolder().imagePath;
+  String temperatura = "Cargando temperatura...";
 
 
   @override
@@ -54,10 +55,19 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
+  // Método para inicializar la temperatura
+
   void determineLocalTemp() async{
     Position position = await DataHolder().geolocAdmin.determinePosition();
-    double value = await DataHolder().httpAdmin.askTemperaturesIn(position.latitude,position.longitude);
-    print("LA TEMPERATURA EN EL SITIO DONDE ESTAS ES: $value");
+    DataHolder().httpAdmin.askTemperaturesIn(position.latitude,position.longitude).then((temperatura) {
+      String temperaturaFormateada = temperatura.toString();
+      this.temperatura = "Temperatura: $temperaturaFormateadaº";
+      print("LA TEMPERATURA EN EL SITIO DONDE ESTAS ES: $temperaturaFormateada");
+      setState(() {
+
+      });
+    });
+
   }
 
   /*void loadGeoLocator() async{
@@ -239,7 +249,8 @@ class _HomeViewState extends State<HomeView> {
           ),
         ),
     ), child: Scaffold(
-      appBar: AppBar(title: const Text("KYTY"),
+      appBar: AppBar(title: Text(temperatura, style: TextStyle(color: Colors.white),),
+        centerTitle: true,
         backgroundColor: Colors.grey[900],
         leading: IconButton(
           onPressed: _handleMenuButtonPressed,
@@ -251,6 +262,7 @@ class _HomeViewState extends State<HomeView> {
                 child: Icon(
                   value.visible ? Icons.clear : Icons.menu,
                   key: ValueKey<bool>(value.visible),
+                  color: Colors.white,
                 ),
               );
             },
