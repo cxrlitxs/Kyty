@@ -17,22 +17,26 @@ class FirebaseAdmin{
       await db.collection("users").doc(uidUsuario).set(user.toFirestore());
   }
 
-  Future<List<FbPost>> filterByNickName(String searchQuery) async{
-    //Recoger los post de la base de datos
+  Future<List<FbPost>> filterByNickName(String searchQuery) async {
+    // Recoger los post de la base de datos
     CollectionReference<FbPost> ref = db.collection("posts")
         .withConverter(fromFirestore: FbPost.fromFirestore,
       toFirestore: (FbPost post, _) => post.toFirestore(),);
 
-    //Decidí no poner titulo por lo que filtro por apodo
-    //Filtro los post por nickName
+    // Buscar post donde el nickName comienza con la cadena de búsqueda
+    String searchEnd = searchQuery.substring(0, searchQuery.length - 1)
+        + String.fromCharCode(searchQuery.codeUnitAt(searchQuery.length - 1) + 1);
+
     QuerySnapshot<FbPost> querySnapshot = await ref
-        .where("nickName", isEqualTo: searchQuery)
+        .where("nickName", isGreaterThanOrEqualTo: searchQuery)
+        .where("nickName", isLessThan: searchEnd)
         .get();
 
-    //Devolver la lista
+    // Devolver la lista
     List<FbPost> newPosts = querySnapshot.docs
         .map((doc) => doc.data())
         .toList();
+
     return newPosts;
   }
 
