@@ -47,51 +47,9 @@ class MapViewState extends State<MapView> {
     ref.snapshots().listen(usersDownloaded, onError: downloadUsersError,);
   }
 
-  void usersDownloaded(QuerySnapshot<FbUser> usersDownloaded) {
-    print("NUMERO DE USUARIOS ACTUALIZADOS>>>> " +
-        usersDownloaded.docChanges.length.toString());
+  void usersDownloaded(QuerySnapshot<FbUser> usersDownloaded) async {
 
-    // Obtiene la ubicación actual del usuario desde DataHolder
-    double currentLatitude = DataHolder().FBuser!.geoloc.latitude;
-    double currentLongitude = DataHolder().FBuser!.geoloc.longitude;
-    const double distanceLimit = 5000; // 5 km en metros
-
-    Set<Marker> marcTemp = Set();
-
-    for (int i = 0; i < usersDownloaded.docChanges.length; i++) {
-      FbUser temp = usersDownloaded.docChanges[i].doc.data()!;
-      userTable[usersDownloaded.docChanges[i].doc.id] = temp;
-
-      double distance = Geolocator.distanceBetween(
-          currentLatitude,
-          currentLongitude,
-          temp.geoloc.latitude,
-          temp.geoloc.longitude);
-
-
-      if (distance <= distanceLimit) {
-        Marker markerTemp = Marker(
-          markerId: MarkerId(usersDownloaded.docChanges[i].doc.id),
-          position: LatLng(temp.geoloc.latitude, temp.geoloc.longitude),
-          infoWindow: InfoWindow(
-            title: temp.nickName,
-            snippet: temp.pokemonFavorito.toString(),
-          ), // InfoWindow
-        );
-        marcTemp.add(markerTemp);
-      }
-    }
-
-    Marker userMarker = Marker(
-      markerId: MarkerId(FirebaseAuth.instance.currentUser!.uid),
-      position: LatLng(DataHolder().FBuser!.geoloc.latitude,
-          DataHolder().FBuser!.geoloc.longitude),
-      infoWindow: InfoWindow(
-        title: DataHolder().FBuser!.nickName,
-        snippet: DataHolder().FBuser!.pokemonFavorito,
-      ), // InfoWindow
-    );
-    marcTemp.add(userMarker);
+    Set<Marker> marcTemp = await DataHolder().fbadmin.filterByRadiusInMap(usersDownloaded, userTable);
 
     setState(() {
       markers.clear();
