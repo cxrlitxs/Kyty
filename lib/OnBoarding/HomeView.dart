@@ -25,6 +25,7 @@ class _HomeViewState extends State<HomeView> {
   String temperatura = "Cargando temperatura...";
   bool isSearchOpen = false;
   String searchQuery = "";
+  TextEditingController filterController = TextEditingController();
 
 
   @override
@@ -150,18 +151,8 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void handleSearch(String searchQuery) async {
-    CollectionReference<FbPost> ref = db.collection("posts")
-        .withConverter(fromFirestore: FbPost.fromFirestore,
-      toFirestore: (FbPost post, _) => post.toFirestore(),);
 
-    //Decidí no poner titulo por lo que filtro por apodo
-    QuerySnapshot<FbPost> querySnapshot = await ref
-        .where("nickName", isEqualTo: searchQuery)
-        .get();
-
-    List<FbPost> newPosts = querySnapshot.docs
-        .map((doc) => doc.data())
-        .toList();
+    List<FbPost> newPosts = await DataHolder().fbadmin.filterByNickName(searchQuery);
 
     posts.clear();
         setState(() {
@@ -169,8 +160,6 @@ class _HomeViewState extends State<HomeView> {
           posts.addAll(newPosts);
         }
         );
-
-    print("Buscando: $searchQuery");
   }
 
   @override
@@ -357,6 +346,7 @@ class _HomeViewState extends State<HomeView> {
                           borderSide: BorderSide(color: Colors.white), // Color del borde cuando el TextField está enfocado
                         ),
                       ),
+                      controller: filterController,
                       onChanged: (value) {
                         searchQuery = value; // Actualiza el término de búsqueda
                       },
@@ -372,6 +362,7 @@ class _HomeViewState extends State<HomeView> {
               ),
               TextButton(onPressed: (){
                 downloadPosts();
+                filterController.clear();
               }, child: const Text("Borrar filtro",
                 style: TextStyle(
                   color: Colors.blue,
